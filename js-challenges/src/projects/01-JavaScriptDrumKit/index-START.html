@@ -7,39 +7,39 @@
   </head>
   <body>
     <div class="keys">
-      <div data-key="65" class="key">
+      <div data-key="65" class="key" onclick="playSoundClicked(this)">
         <kbd>A</kbd>
         <span class="sound">clap</span>
       </div>
-      <div data-key="83" class="key">
+      <div data-key="83" class="key" onclick="playSoundClicked(this)">
         <kbd>S</kbd>
         <span class="sound">hihat</span>
       </div>
-      <div data-key="68" class="key">
+      <div data-key="68" class="key" onclick="playSoundClicked(this)">
         <kbd>D</kbd>
         <span class="sound">kick</span>
       </div>
-      <div data-key="70" class="key">
+      <div data-key="70" class="key" onclick="playSoundClicked(this)">
         <kbd>F</kbd>
         <span class="sound">openhat</span>
       </div>
-      <div data-key="71" class="key">
+      <div data-key="71" class="key" onclick="playSoundClicked(this)">
         <kbd>G</kbd>
         <span class="sound">boom</span>
       </div>
-      <div data-key="72" class="key">
+      <div data-key="72" class="key" onclick="playSoundClicked(this)">
         <kbd>H</kbd>
         <span class="sound">ride</span>
       </div>
-      <div data-key="74" class="key">
+      <div data-key="74" class="key" onclick="playSoundClicked(this)">
         <kbd>J</kbd>
         <span class="sound">snare</span>
       </div>
-      <div data-key="75" class="key">
+      <div data-key="75" class="key" onclick="playSoundClicked(this)">
         <kbd>K</kbd>
         <span class="sound">tom</span>
       </div>
-      <div data-key="76" class="key">
+      <div data-key="76" class="key" onclick="playSoundClicked(this)">
         <kbd>L</kbd>
         <span class="sound">tink</span>
       </div>
@@ -65,15 +65,40 @@
         key.classList.add("playing");
       }
 
+      function playSoundClicked(key) {
+        const keyCode = key.getAttribute("data-key");
+        const audio = document.querySelector(`audio[data-key="${keyCode}"]`);
+        if (!audio) return; //stop the function from running all together
+        audio.currentTime = 0; // rewind to the start
+        audio.play();
+        key.classList.add("playing");
+      }
+
       function removeTransition(e) {
+        // console.log(e);
         if (e.propertyName !== "transform") return; // skip it if not a transform
         this.classList.remove("playing");
       }
 
+      // Bug Fix: the transition would be stuck with "playing"
+      // tag if pressed to many times to quickly
+      function removeAfterAudio(e) {
+        const keyCode = e.target.getAttribute("data-key");
+        const keyDiv = document.querySelector(`div[data-key = "${keyCode}"]`);
+        if (!keyDiv) return;
+        keyDiv.classList.remove("playing");
+      }
+
       const keys = document.querySelectorAll(".key");
-      keys.forEach(key =>
-        key.addEventListener("transitionend", removeTransition)
-      );
+      keys.forEach(key => {
+        key.addEventListener("transitionend", removeTransition);
+      });
+
+      const audios = document.querySelectorAll("audio");
+      audios.forEach(audio => {
+        audio.addEventListener("ended", removeAfterAudio);
+      });
+
       window.addEventListener("keydown", playSound);
     </script>
   </body>
