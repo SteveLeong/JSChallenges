@@ -1,0 +1,25 @@
+body {
+  width: 100%;
+  height: 100%;
+  background: #f8f8f2;
+  color: #707070;
+  font-family: "Avenir Next"; }
+
+.container .header {
+  text-align: right;
+  padding: 2em;
+  padding-right: 4em; }
+  .container .header .title {
+    font-size: 30px; }
+  .container .header ul {
+    list-style-type: none;
+    text-align: right;
+    margin: 0; }
+    .container .header ul li {
+      display: inline-block; }
+      .container .header ul li a {
+        display: block;
+        padding-right: 25px;
+        font-size: 15px;
+        text-decoration: none;
+        color: #707070 !important; }
