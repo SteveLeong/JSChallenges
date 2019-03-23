@@ -27,6 +27,7 @@ body {
   position: relative;
   font-size: 0;
   overflow: hidden;
+  width: 1090px;
 }
 
 /* This css is only applied when fullscreen is active. */
@@ -63,6 +64,10 @@ body {
 .player__slider {
   width: 10px;
   height: 30px;
+}
+
+.player__slider[name="volume"] {
+  flex: 0.5;
 }
 
 .player__controls {

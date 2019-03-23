@@ -20,6 +20,10 @@ function updatePlayBtn() {
   toggle.textContent = icon;
 }
 
+// For reference: Special characters/symbols
+// const symbol = String.fromCodePoint(0x25ba);
+// console.log(symbol);
+
 function skip() {
   video.currentTime += parseFloat(this.dataset.skip);
 }
@@ -63,3 +67,19 @@ progress.addEventListener("click", scrub);
 progress.addEventListener("mousemove", e => mousedown && scrub(e));
 progress.addEventListener("mousedown", () => (mousedown = true));
 progress.addEventListener("mouseup", () => (mousedown = false));
+
+// const video = document.querySelector("fullscreen");
+function openFullscreen() {
+  if (video.requestFullscreen) {
+    video.requestFullscreen();
+  } else if (video.mozRequestFullScreen) {
+    /* Firefox */
+    video.mozRequestFullScreen();
+  } else if (video.webkitRequestFullscreen) {
+    /* Chrome, Safari & Opera */
+    video.webkitRequestFullscreen();
+  } else if (video.msRequestFullscreen) {
+    /* IE/Edge */
+    video.msRequestFullscreen();
+  }
+}
