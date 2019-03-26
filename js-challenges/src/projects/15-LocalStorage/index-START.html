@@ -64,12 +64,10 @@
       function addItem(e) {
         e.preventDefault();
         const text = this.querySelector("[name=item]").value;
-        console.log(name);
         const item = {
           text,
           done: false
         };
-        console.log(item);
 
         items.push(item);
         populateList(items, itemsList);
